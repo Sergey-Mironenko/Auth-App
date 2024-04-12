@@ -6,6 +6,7 @@ import { reset, clearCredentials } from "./api/requests";
 import { actions as resetingUserActions } from './features/resetingUser';
 import { useAppSelector } from './app/hooks';
 import { useLoading } from './utils/hooks';
+import { Timer } from './types/Timer';
 
 export const Reset = () => {
   const dispatch = useDispatch();
@@ -22,9 +23,9 @@ export const Reset = () => {
   const [isSectionVisible, setIsSectionVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isReseted, setIsReseted] = useState(false);
-  let timer1: any = useRef(null);
-  let timer2: any = useRef(null);
-  let interval: any = useRef(null);
+  let timer1 = useRef<Timer | null>(null);
+  let timer2 = useRef<Timer | null>(null);
+  let interval = useRef<Timer | null>(null);
   const [message, setMessage] = useLoading(interval, '');
     
   const handleMessage = (errorMessage: string) => {
@@ -62,8 +63,8 @@ export const Reset = () => {
       }
     } finally {
       setIsLoading(false);
-      clearInterval(interval.current);
-      clearTimeout(timer2.current);
+      clearInterval(interval.current as Timer);
+      clearTimeout(timer2.current as Timer);
     }
   };
     
@@ -105,8 +106,8 @@ export const Reset = () => {
     }
  
     return () => {
-      clearTimeout(timer1.current);
-      clearTimeout(timer2.current);
+      clearTimeout(timer1.current as Timer);
+      clearTimeout(timer2.current as Timer);
     };
   }, [isReseted]);
    

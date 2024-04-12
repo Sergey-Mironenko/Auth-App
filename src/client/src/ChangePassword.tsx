@@ -6,6 +6,7 @@ import { useAppSelector } from './app/hooks';
 import { useLoading } from './utils/hooks';
 import { clearCredentials, resetPassword, verifyPassword } from './api/requests';
 import { actions as refreshErrorActions } from './features/refreshError';
+import { Timer } from './types/Timer';
 
 export const ChangePassword = () => {
   const dispatch = useDispatch();
@@ -21,9 +22,9 @@ export const ChangePassword = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSectionVisible, setIsSectionVisible] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
-  let timer1: any = useRef(null);
-  let timer2: any = useRef(null);
-  let interval: any = useRef(null);
+  let timer1 = useRef<Timer | null>(null);
+  let timer2 = useRef<Timer | null>(null);
+  let interval = useRef<Timer | null>(null);
   const [message, setMessage] = useLoading(interval, '');
 
   const handleMessage = (errorMessage: string) => {
@@ -59,8 +60,8 @@ export const ChangePassword = () => {
       }
     } finally {
       setIsLoading(false);
-      clearInterval(interval.current);
-      clearTimeout(timer2.current);
+      clearInterval(interval.current as Timer);
+      clearTimeout(timer2.current as Timer);
     }
   };
 
@@ -70,7 +71,7 @@ export const ChangePassword = () => {
     } else {
       handleVerify();
     }
-  }
+  };
 
   const handleReset = async () => {
     setIsLoading(true);
@@ -101,8 +102,8 @@ export const ChangePassword = () => {
       }
     } finally {
       setIsLoading(false);
-      clearInterval(interval.current);
-      clearTimeout(timer2.current);
+      clearInterval(interval.current as Timer);
+      clearTimeout(timer2.current as Timer);
     }
   };
 
@@ -134,8 +135,8 @@ export const ChangePassword = () => {
     }
 
     return () => {
-      clearTimeout(timer1.current);
-      clearTimeout(timer2.current);
+      clearTimeout(timer1.current as Timer);
+      clearTimeout(timer2.current as Timer);
     }
   }, []);
 

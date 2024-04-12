@@ -1,16 +1,17 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { actions as refreshErrorActions } from './features/refreshError';
 import classNames from 'classnames';
+import { Timer } from './types/Timer';
 
 export const Error = ({ errorMessage = "Oops, 404 :(" }) => {
   const dispatch = useDispatch();
-  const removeRefreshError = () => dispatch(refreshErrorActions.removeRefreshError());
+  const removeRefreshError = useCallback(() => dispatch(refreshErrorActions.removeRefreshError()), [dispatch]);
   const message = errorMessage;
   const [text, setText] = useState('A');
   const [isButtonVisible, setIisButtonVisible] = useState(false);
-  let timer: any = useRef(null);
+  let timer = useRef<Timer | null>(null);
   
   useEffect(() => {
     for (let i = 2; i <= message.length + 1; i++) {
@@ -24,7 +25,7 @@ export const Error = ({ errorMessage = "Oops, 404 :(" }) => {
     }
   
     return () => {
-      clearTimeout(timer.current);
+      clearTimeout(timer.current as Timer);
       removeRefreshError();
     };
   }, [message, removeRefreshError]);

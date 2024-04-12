@@ -5,7 +5,7 @@ import { HashRouter as Router } from 'react-router-dom';
 import store from './app/store';
 import { App } from './App';
 import reportWebVitals from './reportWebVitals';
-import './App.css';
+import './App.scss';
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);

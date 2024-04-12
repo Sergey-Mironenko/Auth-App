@@ -6,6 +6,7 @@ import { useLoading } from './utils/hooks';
 import { verifyUser, compareTokens } from './api/requests';
 import { actions as resetingUserActions } from './features/resetingUser';
 import { User } from './types/User';
+import { Timer } from './types/Timer';
   
 export const Verify = () => {
   const dispatch = useDispatch();
@@ -20,9 +21,9 @@ export const Verify = () => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [isSectionVisible, setisSectionVisible] = useState(false);
   const navigate = useNavigate();
-  let timer1: any = useRef(null);
-  let timer2: any = useRef(null);
-  let interval: any = useRef(null);
+  let timer1 = useRef<Timer | null>(null);
+  let timer2 = useRef<Timer | null>(null);
+  let interval = useRef<Timer | null>(null);
   const [message, setMessage] = useLoading(interval, '');
   
     const handleMessage = (errorMessage: string) => {
@@ -49,8 +50,8 @@ export const Verify = () => {
         }
       } finally {
         setIsLoading(false);
-        clearInterval(interval.current);
-        clearTimeout(timer2.current);
+        clearInterval(interval.current as Timer);
+        clearTimeout(timer2.current as Timer);
       }
     };
   
@@ -72,8 +73,8 @@ export const Verify = () => {
         }
       } finally {
         setIsLoading(false);
-        clearInterval(interval.current);
-        clearTimeout(timer2.current);
+        clearInterval(interval.current as Timer);
+        clearTimeout(timer2.current as Timer);
       }
     };
   
@@ -109,8 +110,8 @@ export const Verify = () => {
       }
   
       return () => {
-        clearTimeout(timer1.current);
-        clearTimeout(timer2.current);
+        clearTimeout(timer1.current as Timer);
+        clearTimeout(timer2.current as Timer);
       }
     }, []);
   

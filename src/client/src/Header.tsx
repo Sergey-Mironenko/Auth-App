@@ -11,7 +11,7 @@ export const Header = () => {
   const buttonCondition = pathname === '/login'
     || pathname === '/registration'
     || pathname === '/';
-  let timer: any = useRef(null);
+  let timer = useRef<NodeJS.Timeout>();
 
   useEffect(() => {
     setAreButtonsVisible(false);

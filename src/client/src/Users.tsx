@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { User } from "./types/User";
+import { Timer } from "./types/Timer";
 
 type Props = {
   users: User[];
@@ -7,14 +8,18 @@ type Props = {
 
 export const Users: React.FC<Props> = ({ users }) => {
   const [visibleUsers, setVisibleUsers] = useState<User[]>([]);
-  let timer: any = useRef(null);
+  let timer = useRef<Timer | null>(null);
   
   useEffect(() => {
+    clearTimeout(timer.current as Timer);
+
     for (let i = 1; i <= users.length; i++) {
       timer.current = setTimeout(() => {
         setVisibleUsers(users.slice(0, i));
       }, (i * 70))
     }
+
+    return () => clearTimeout(timer.current as Timer);
   }, [users]);
 
   return (

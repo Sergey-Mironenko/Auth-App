@@ -29,6 +29,8 @@ function onResponseSuccess(response: any) {
 async function onResponseError(error: any) {
   const originalRequest = error.config;
 
+  console.log(error)
+
   if (!error.response
     || error.response.status !== 401
     || error.response.data.message === 'Failed to refresh'){

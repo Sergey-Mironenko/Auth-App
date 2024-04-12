@@ -9,6 +9,7 @@ import { actions as logedUserActions } from './features/logedUser';
 import { actions as isRenamedActions } from './features/isRenamed';
 import { actions as refreshErrorActions } from './features/refreshError';
 import { User } from './types/User';
+import { Timer } from './types/Timer';
      
 export const Rename = () => {
   const dispatch = useDispatch();
@@ -23,9 +24,9 @@ export const Rename = () => {
   const [isButtonVisible, setIsButtonVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isSectionVisible, setIsSectionVisible] = useState(false);
-  let timer1: any = useRef(null);
-  let timer2: any = useRef(null);
-  let interval: any = useRef(null);
+  let timer1 = useRef<Timer | null>(null);
+  let timer2 = useRef<Timer | null>(null);
+  let interval = useRef<Timer | null>(null);
   const [message, setMessage] = useLoading(interval, '');
  
   const handleMessage = (errorMessage: string) => {
@@ -63,8 +64,8 @@ export const Rename = () => {
       }
     } finally {
       setIsLoading(false);
-      clearInterval(interval.current);
-      clearTimeout(timer2.current);
+      clearInterval(interval.current as Timer);
+      clearTimeout(timer2.current as Timer);
     }
   };
   
@@ -92,8 +93,8 @@ export const Rename = () => {
     }
   
     return () => {
-      clearTimeout(timer1.current);
-      clearTimeout(timer2.current);
+      clearTimeout(timer1.current as Timer);
+      clearTimeout(timer2.current as Timer);
       setIsRenamed(false);
     }
   }, [setIsRenamed]);

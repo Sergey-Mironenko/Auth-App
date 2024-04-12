@@ -8,6 +8,7 @@ import { RoutesProvider } from './RoutesProvider';
 import { actions as logedUserActions } from './features/logedUser';
 import { actions as refreshActions } from './features/refreshError';
 import { User } from './types/User';
+import { Timer } from './types/Timer';
 
 export const App: React.FC = () => {
   const { pathname } = useLocation();
@@ -16,7 +17,7 @@ export const App: React.FC = () => {
   const handleRefreshFail = useCallback(() => dispatch(refreshActions.handleRefreshFail()), [dispatch]);
   const [areBordersVisible, setAreBordersVisible] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
-  const timer: any = useRef(null);
+  const timer = useRef<Timer | null>(null);
   const animationCondition = pathname === '/'
     || pathname === '/error'
     || pathname === '/login+error'
@@ -29,11 +30,14 @@ export const App: React.FC = () => {
 
     if (token) {
       try {
+        console.log('try to refresh')
         const { user, accessToken } = await refresh();
         
         localStorage.setItem('accessToken', accessToken);
+        console.log('refreshed')
         setLogedUser(user);
       } catch(e) {
+        console.log('fail')
         handleRefreshFail();
       } finally {
         setIsChecked(true);
@@ -41,11 +45,12 @@ export const App: React.FC = () => {
     } else {
       setIsChecked(true);
     }
-  }, [setLogedUser, handleRefreshFail]);
+  }, []);
 
   useEffect(() => {
+    console.log('useEffect')
     checkAuth();
-  }, [checkAuth]);
+  }, []);
 
   useEffect(() => {
     if (animationCondition) {
@@ -69,7 +74,7 @@ export const App: React.FC = () => {
       setAreBordersVisible(true);
     }
 
-    return () => clearTimeout(timer.current);
+    return () => clearTimeout(timer.current as Timer);
   }, [pathname, animationCondition]);
 
   return (

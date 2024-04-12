@@ -6,6 +6,7 @@ import { loginUser, rememberCredentials, clearCredentials, getCredentials } from
 import { actions as logedUserActions } from './features/logedUser';
 import { useLoading } from './utils/hooks';
 import { User } from './types/User';
+import { Timer } from './types/Timer';
   
 export const Login = () => {
   const dispatch = useDispatch();
@@ -21,9 +22,9 @@ export const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isRemembered, setIsRemembered] = useState(false);
   const [isSectionVisible, setisSectionVisible] = useState(false);
-  let timer1: any = useRef(null);
-  let timer2: any = useRef(null);
-  let interval: any = useRef(null);
+  let timer1 = useRef<Timer | null>(null);
+  let timer2 = useRef<Timer | null>(null);
+  let interval = useRef<Timer | null>(null);
   const [message, setMessage] = useLoading(interval, '');
 
   const handleMessage = (errorMessage: string) => {
@@ -45,8 +46,6 @@ export const Login = () => {
       );
   
       const { user, accessToken } = await loginUser(email, password);
-
-      console.log(user)
   
       localStorage.setItem('accessToken', accessToken);
       setLogedUser(user);
@@ -61,8 +60,8 @@ export const Login = () => {
       }
     } finally {
       setIsLoading(false);
-      clearInterval(interval.current);
-      clearTimeout(timer2.current);
+      clearInterval(interval.current as Timer);
+      clearTimeout(timer2.current as Timer);
     }
   };
   
@@ -109,8 +108,8 @@ export const Login = () => {
       }
   
       return () => {
-        clearTimeout(timer1.current);
-        clearTimeout(timer2.current)
+        clearTimeout(timer1.current as Timer);
+        clearTimeout(timer2.current as Timer)
       }
     }, []);
   

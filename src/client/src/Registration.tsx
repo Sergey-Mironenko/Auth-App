@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import classNames from 'classnames';
 import { registerUser } from './api/requests';
 import { useLoading } from './utils/hooks';
+import { Timer } from './types/Timer';
   
 export const Registration = () => {
   const instructions = 'Email must have @ symbol and letter or number after it. Password must be from 8 to 20 symbols and have at least one number or one letter.';
@@ -15,9 +16,9 @@ export const Registration = () => {
   const [isButtonVisible, setIsButtonVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isSectionVisible, setisSectionVisible] = useState(false);
-  let timer1: any = useRef(null);
-  let timer2: any = useRef(null);
-  let interval: any = useRef(null);
+  let timer1 = useRef<Timer | null>(null);
+  let timer2 = useRef<Timer | null>(null);
+  let interval = useRef<Timer | null>(null);
   const [message, setMessage] = useLoading(interval, '');
   
   const handleMessage = (errorMessage: string) => {
@@ -47,8 +48,8 @@ export const Registration = () => {
       }
     } finally {
       setIsLoading(false);
-      clearInterval(interval.current);
-      clearTimeout(timer2.current);
+      clearInterval(interval.current as Timer);
+      clearTimeout(timer2.current as Timer);
     }
   };
   
@@ -84,8 +85,8 @@ export const Registration = () => {
     }
   
     return () => {
-      clearTimeout(timer1.current);
-      clearTimeout(timer2.current);
+      clearTimeout(timer1.current as Timer);
+      clearTimeout(timer2.current as Timer);
     };
   }, []);
   

@@ -6,8 +6,9 @@ import { useAppSelector } from './app/hooks';
 import { useLoading } from './utils/hooks';
 import { getUsers } from './api/requests';
 import { actions as refreshErrorActions } from './features/refreshError';
-import { User } from './types/User';
 import { Users } from './Users';
+import { User } from './types/User';
+import { Timer } from './types/Timer';
 
 export const UserList = () => {
   const dispatch = useDispatch();
@@ -34,9 +35,9 @@ export const UserList = () => {
       ? Math.ceil(users.length / perPage)
       : users.length / perPage
   ) : 0;
-  let timer1: any = useRef(null);
-  let timer2: any = useRef(null);
-  let interval: any = useRef(null);
+  let timer1 = useRef<Timer | null>(null);
+  let timer2 = useRef<Timer | null>(null);
+  let interval = useRef<Timer | null>(null);
   const [message, setMessage] = useLoading(interval, '');
 
   const loadUsers = useCallback(async () => {
@@ -79,8 +80,8 @@ export const UserList = () => {
       }
     } finally {
       setIsLoading(false);
-      clearInterval(interval.current);
-      clearTimeout(timer2.current);
+      clearInterval(interval.current as Timer);
+      clearTimeout(timer2.current as Timer);
     }
   }, [setMessage, handleRefreshFail]);
 
@@ -120,8 +121,8 @@ export const UserList = () => {
     }
   
     return () => {
-      clearTimeout(timer1.current);
-      clearTimeout(timer2.current);
+      clearTimeout(timer1.current as Timer);
+      clearTimeout(timer2.current as Timer);
     }
   }, [loadUsers]);
   

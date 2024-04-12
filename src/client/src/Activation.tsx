@@ -5,6 +5,7 @@ import { activate } from "./api/requests";
 import { actions as logedUserActions } from './features/logedUser';
 import { useLoading } from './utils/hooks';
 import { User } from "./types/User";
+import { Timer } from "./types/Timer";
 
 export const Activation = () => {
   const dispatch = useDispatch();
@@ -12,13 +13,13 @@ export const Activation = () => {
   const [isActivating, setIsActivating] = useState(false);
   const { pathname } = useLocation();
   const token = pathname.split('/')[2];
-  let timer1: any = useRef(null);
-  let interval: any = useRef(null);
+  let timer1 = useRef<Timer | null>(null);
+  let interval = useRef<Timer | null>(null);
   const [message, setMessage] = useLoading(interval, '');
   
   const handleActivation = useCallback(async () => {
     const handleMessage = async (str: string) => {
-      clearInterval(interval.current)
+      clearInterval(interval.current as Timer)
       setMessage(str[0]);
   
       for (let i = 1; i <= str.length + 1; i++) {
@@ -42,7 +43,7 @@ export const Activation = () => {
         handleMessage(e.message);
       }
     } finally {
-      clearTimeout(timer1.current);
+      clearTimeout(timer1.current as Timer);
       setIsActivating(false);
     }
   }, [token, setMessage, setIsActivating, setLogedUser]);
@@ -56,7 +57,7 @@ export const Activation = () => {
   useEffect(() => {
     handleActivation();
     
-    return clearTimeout(timer1.current);
+    return clearTimeout(timer1.current as Timer);
   }, [handleActivation, token]);
 
   return (

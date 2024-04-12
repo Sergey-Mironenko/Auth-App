@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import { logoutUser } from './api/requests';
 import { useAppSelector } from './app/hooks';
 import { actions as logedUserActions } from './features/logedUser';
+import { Timer } from './types/Timer';
 
 export const Profile = () => {
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ export const Profile = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const animationCondition = logedUser ? (pathname === `/profile/${logedUser.id}`) : false;
-  let timer: any = useRef(null);
+  let timer = useRef<Timer | null>(null);
   
   const onLogOut = async () => {
     setIsLogingOut(true);
@@ -76,7 +77,7 @@ export const Profile = () => {
       setVisibleButtonsAmount(0);
     }
   
-    return () => clearTimeout(timer.current);
+    return () => clearTimeout(timer.current as Timer);
   }, [isRenamed, message, animationCondition, setText]);
     
   return (
