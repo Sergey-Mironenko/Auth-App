@@ -233,18 +233,17 @@ export const refresh = async (req, res, next) => {
   const { refreshToken } = req.cookies;
   const verifiedUser = jwtService.verifyRefresh(refreshToken);
 
-  console.log('refresh - verify user')
   if (!verifiedUser) {
     throw ApiError.Unauthorized('Failed to refresh');
   }
 
   const token = await tokenService.getByToken(refreshToken);
-  console.log('refresh - verify token')
+
   if (!token) {
     throw ApiError.Unauthorized('Failed to refresh');
   }
-  console.log('refresh - send')
+
   const user = await userService.getByEmail(verifiedUser.email);
-  console.log('refresh - auth')
+
   await sendAuthentication(res, user);
 };

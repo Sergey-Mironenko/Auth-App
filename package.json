@@ -46,5 +46,8 @@
     "pg": "^8.11.3",
     "sequelize": "^6.37.0",
     "uuid": "^9.0.1"
+  },
+  "transform": {
+    "\\.js$": "<rootDir>/node_modules/babel-jest"
   }
 }
