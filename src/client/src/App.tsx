@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import classNames from 'classnames';
 import { refresh } from './api/requests';
@@ -11,17 +10,12 @@ import { User } from './types/User';
 import { Timer } from './types/Timer';
 
 export const App: React.FC = () => {
-  const { pathname } = useLocation();
   const dispatch = useDispatch();
   const setLogedUser = useCallback((user: User) => dispatch(logedUserActions.setLogedUser(user)), [dispatch]);
   const handleRefreshFail = useCallback(() => dispatch(refreshActions.handleRefreshFail()), [dispatch]);
   const [areBordersVisible, setAreBordersVisible] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const timer = useRef<Timer | null>(null);
-  const animationCondition = pathname === '/'
-    || pathname === '/error'
-    || pathname === '/login+error'
-    || pathname.split('/')[1] === 'activate';
 
   const checkAuth = useCallback(async () => {
     setIsChecked(false);
@@ -48,34 +42,29 @@ export const App: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    console.log('useEffect')
     checkAuth();
-  }, []);
 
-  useEffect(() => {
-    if (animationCondition) {
-      for (let i = 0; i <= 7; i++) {
-        timer.current = setTimeout(() => {
-    
-        switch (i) {
-          case 1:
-          case 2:
-          case 5:
-          case 6:
-            setAreBordersVisible(false);
-            break;
-          default:
-            setAreBordersVisible(true);
-            break;
-          } 
-        }, (i * 50))
-      }  
-    } else {
-      setAreBordersVisible(true);
+    clearTimeout(timer.current as Timer);
+
+    for (let i = 0; i <= 7; i++) {
+      timer.current = setTimeout(() => {
+  
+      switch (i) {
+        case 1:
+        case 2:
+        case 5:
+        case 6:
+          setAreBordersVisible(false);
+          break;
+        default:
+          setAreBordersVisible(true);
+          break;
+        } 
+      }, (i * 50))
     }
 
     return () => clearTimeout(timer.current as Timer);
-  }, [pathname, animationCondition]);
+  }, [checkAuth]);
 
   return (
     <div className="App">

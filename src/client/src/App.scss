@@ -1,3 +1,5 @@
+$base-color: rgb(104, 221, 20);
+
 * {
   font-family: "Kode Mono", monospace;
   font-optical-sizing: auto;
@@ -13,7 +15,7 @@
   font-weight: 600;
   font-style: normal;
   font-size: 50px;
-  color: rgb(131, 241, 47);
+  color: $base-color;
 
   padding: 0;
   display: flex;
@@ -30,8 +32,8 @@
   width: 600px;
   align-items: center;
   flex-direction: column;
-  border-left: 3px solid rgb(131, 241, 47);
-  border-right: 3px solid rgb(131, 241, 47);
+  border-left: 3px solid $base-color;
+  border-right: 3px solid $base-color;
 
   &--withoutBorders {
     border: none;
@@ -66,9 +68,9 @@
     display: none;
     width: 160px;
     height: 60px;
-    border: 5px solid rgb(131, 241, 47);
+    border: 5px solid $base-color;
     background-color: rgb(7, 26, 3);
-    color: rgb(131, 241, 47);
+    color: $base-color;
     font-size: 20px;
     cursor: pointer;
     text-decoration: none;
@@ -77,29 +79,29 @@
       width: 200px;
     }
 
-    &--disabled {
-      pointer-events: none;
-    }
-
     &--enabled {
       display: flex;
       justify-content: center;
       align-items: center;
     }
 
+    &--disabled {
+      pointer-events: none;
+    }
+
     &--focused {
-      background-color: rgb(131, 241, 47);
+      background-color: $base-color;
       color: rgb(7, 26, 3);
       pointer-events: none;
     }
 
-    &:hover {
-      background-color: rgb(131, 241, 47);
-      color: rgb(7, 26, 3);
-    }
-
     &--hidden {
       display: none;
+    }
+
+    &:hover {
+      background-color: $base-color;
+      color: rgb(7, 26, 3);
     }
   }
 }
@@ -107,6 +109,10 @@
 .section {
   &--profile {
     margin-top: 8px;
+  }
+
+  &__field-container {
+    display: flex;
   }
 
   &__field {
@@ -117,11 +123,7 @@
     width: max-content;
     min-width: 500px;
     height: fit-content;
-    border: 3px solid rgb(131, 241, 47);
-
-    &-container {
-      display: flex;
-    }
+    border: 3px solid $base-color;
   }
 
   &__title {
@@ -158,26 +160,12 @@
     padding: 2px 7px;
     flex-grow: 1;
     font-size: 20px;
-    color: rgb(131, 241, 47);
+    color: $base-color;
     background-color: rgb(7, 26, 3);
-    border: 3px solid rgb(131, 241, 47);
+    border: 3px solid $base-color;
     outline: none;
 
     &--verify {
-      margin-bottom: 10px;
-    }
-
-    &--disabled {
-      background-color: rgb(7, 26, 3);
-      color: rgb(57, 104, 20);
-      pointer-events: none;
-
-      &::placeholder {
-        color: rgb(57, 104, 20);;
-      }
-    }
-
-    &:last-child {
       margin-bottom: 10px;
     }
 
@@ -185,9 +173,23 @@
       display: flex;
     }
 
+    &--disabled {
+      background-color: rgb(7, 26, 3);
+      color: rgb(57, 104, 20);
+      pointer-events: none;
+    }
+
+    &:last-child {
+      margin-bottom: 10px;
+    }
+
     &::placeholder {
       font-size: 20px;
-      color: rgb(131, 241, 47);
+      color: $base-color;
+    }
+
+    &--disabled::placeholder {
+      color: rgb(57, 104, 20);
     }
   }
 
@@ -211,9 +213,9 @@
     display: none;
     width: 160px;
     height: 65px;
-    border: 5px solid rgb(131, 241, 47);
+    border: 5px solid $base-color;
     background-color: rgb(7, 26, 3);
-    color: rgb(131, 241, 47);
+    color: $base-color;
     font-size: 20px;
     cursor: pointer;
     text-decoration: none;
@@ -223,7 +225,7 @@
       margin-top: 15px;
     }
 
-    &__button--list {
+    &--list {
       box-sizing: content-box;
       width: 45px;
       height: 45px;
@@ -232,7 +234,7 @@
 
     &--back {
       transform: translate(-32%, -32%);
-      border: 3px solid rgb(131, 241, 47);
+      border: 3px solid $base-color;
       box-sizing: content-box;
       width: 40px;
       height: 40px;
@@ -255,15 +257,20 @@
       color: rgb(57, 104, 20);
       pointer-events: none;
     }
+
+    &:hover {
+      background-color: $base-color;
+      color: rgb(7, 26, 3);
+    }
   }
 
   &__page_container {
     display: none;
     height: 45px;
     width: 100px;
-    border: 5px solid rgb(131, 241, 47);
+    border: 5px solid $base-color;
     background-color: rgb(7, 26, 3);
-    color: rgb(131, 241, 47);
+    color: $base-color;
     font-size: 26px;
 
     &--enabled {
@@ -271,13 +278,8 @@
       justify-content: center;
       align-items: center;
     }
-
-    &:hover {
-      background-color: rgb(131, 241, 47);
-      color: rgb(7, 26, 3);
-    }
   }
-  
+
   &__remember-container {
     display: flex;
     align-items: center;
@@ -287,9 +289,9 @@
     display: none;
     width: 30px;
     height: 30px;
-    border: 5px solid rgb(131, 241, 47);
+    border: 5px solid $base-color;
     background-color: rgb(7, 26, 3);
-    color: rgb(131, 241, 47);
+    color: $base-color;
     font-size: 20px;
     cursor: pointer;
     text-decoration: none;
@@ -306,7 +308,7 @@
       background-image: url('../public/V.png');
       background-position: center;
       background-size: contain;
-      background-color: rgb(131, 241, 47);
+      background-color: $base-color;
       color: rgb(7, 26, 3);
     }
   }
@@ -314,7 +316,7 @@
   &__error {
     display: none;
     max-width: 300px;
-    color: rgb(131, 241, 47);
+    color: $base-color;
     font-size: 20px;
 
     &--enabled {
@@ -335,7 +337,7 @@
     margin: 0 10px 10px;
     padding: 10px;
     height: 230px;
-    border: 3px solid rgb(131, 241, 47);
+    border: 3px solid $base-color;
     font-size: 20px;
     overflow: hidden;
   }
@@ -346,7 +348,7 @@
     margin-bottom: 10px;
 
     &--main {
-      border-bottom: 2px solid rgb(131, 241, 47);
+      border-bottom: 2px solid $base-color;
     }
   }
 
@@ -360,7 +362,7 @@
 }
 
 .activation {
-  color: rgb(131, 241, 47);
+  color: $base-color;
   margin: 50px 0;
   font-size: 30px;
 }
