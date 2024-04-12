@@ -1,4 +1,6 @@
 $base-color: rgb(104, 221, 20);
+$background-color: rgb(7, 26, 3);
+$disable-color: rgb(57, 104, 20);
 
 * {
   font-family: "Kode Mono", monospace;
@@ -20,7 +22,7 @@ $base-color: rgb(104, 221, 20);
   padding: 0;
   display: flex;
   justify-content: center;
-  background-color: rgb(7, 26, 3);
+  background-color: $background-color;
   height: 100vh;
   width: 100vw;
 }
@@ -69,7 +71,7 @@ $base-color: rgb(104, 221, 20);
     width: 160px;
     height: 60px;
     border: 5px solid $base-color;
-    background-color: rgb(7, 26, 3);
+    background-color: $background-color;
     color: $base-color;
     font-size: 20px;
     cursor: pointer;
@@ -91,7 +93,7 @@ $base-color: rgb(104, 221, 20);
 
     &--focused {
       background-color: $base-color;
-      color: rgb(7, 26, 3);
+      color: $background-color;
       pointer-events: none;
     }
 
@@ -101,7 +103,7 @@ $base-color: rgb(104, 221, 20);
 
     &:hover {
       background-color: $base-color;
-      color: rgb(7, 26, 3);
+      color: $background-color;
     }
   }
 }
@@ -129,7 +131,7 @@ $base-color: rgb(104, 221, 20);
   &__title {
     padding: 0 6px;
     transform: translate(5%, -52%);
-    background-color: rgb(7, 26, 3);
+    background-color: $background-color;
     font-size: 30px;
     width: max-content;
 
@@ -161,7 +163,7 @@ $base-color: rgb(104, 221, 20);
     flex-grow: 1;
     font-size: 20px;
     color: $base-color;
-    background-color: rgb(7, 26, 3);
+    background-color: $background-color;
     border: 3px solid $base-color;
     outline: none;
 
@@ -174,8 +176,8 @@ $base-color: rgb(104, 221, 20);
     }
 
     &--disabled {
-      background-color: rgb(7, 26, 3);
-      color: rgb(57, 104, 20);
+      background-color: $background-color;
+      color: $disable-color;
       pointer-events: none;
     }
 
@@ -189,7 +191,7 @@ $base-color: rgb(104, 221, 20);
     }
 
     &--disabled::placeholder {
-      color: rgb(57, 104, 20);
+      color: $background-color;
     }
   }
 
@@ -214,7 +216,7 @@ $base-color: rgb(104, 221, 20);
     width: 160px;
     height: 65px;
     border: 5px solid $base-color;
-    background-color: rgb(7, 26, 3);
+    background-color: $background-color;
     color: $base-color;
     font-size: 20px;
     cursor: pointer;
@@ -253,14 +255,14 @@ $base-color: rgb(104, 221, 20);
     }
 
     &--disabled {
-      background-color: rgb(7, 26, 3);
-      color: rgb(57, 104, 20);
+      background-color: $background-color;
+      color: $disable-color;
       pointer-events: none;
     }
 
     &:hover {
       background-color: $base-color;
-      color: rgb(7, 26, 3);
+      color: $background-color;
     }
   }
 
@@ -269,7 +271,7 @@ $base-color: rgb(104, 221, 20);
     height: 45px;
     width: 100px;
     border: 5px solid $base-color;
-    background-color: rgb(7, 26, 3);
+    background-color: $background-color;
     color: $base-color;
     font-size: 26px;
 
@@ -290,7 +292,7 @@ $base-color: rgb(104, 221, 20);
     width: 30px;
     height: 30px;
     border: 5px solid $base-color;
-    background-color: rgb(7, 26, 3);
+    background-color: $background-color;
     color: $base-color;
     font-size: 20px;
     cursor: pointer;
@@ -309,7 +311,7 @@ $base-color: rgb(104, 221, 20);
       background-position: center;
       background-size: contain;
       background-color: $base-color;
-      color: rgb(7, 26, 3);
+      color: $background-color;
     }
   }
 
